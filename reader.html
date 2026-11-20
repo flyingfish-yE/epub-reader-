@@ -1,65 +1,90 @@
 <!DOCTYPE html>
-<html lang="zh" data-theme="day">
+<html lang="en" data-theme="day">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>正在阅读 · 轻小说阅读器</title>
+    <title>Current Book · Light Novel Reader</title>
     <link rel="stylesheet" href="/src/reader.css" />
     
   </head>
   <body>
     <!-- 顶部工具栏：字号 + 日夜切换 -->
-    <div class="toolbar reader-toolbar"><button id="back-shelf" class="tool-btn">‹ 书架</button><span id="reader-book-title" class="reader-book-title"></span><button id="edit-btn" class="tool-btn">✎ 插图</button>
+    <div class="toolbar reader-toolbar"><button id="back-shelf" class="tool-btn">‹ Shelf</button><span id="reader-book-title" class="reader-book-title"></span><button id="edit-btn" class="tool-btn">✎ Images</button>
       <button id="font-btn" class="tool-btn">Aa</button>
-      <button id="theme-btn" class="tool-btn">🌙 夜间</button>
+      <button id="theme-btn" class="tool-btn">🌙 Night</button>
     </div>
 
     <!-- 字号面板（点 Aa 才出现） -->
     <div id="font-panel" class="font-panel">
-      <label>文字大小：<span id="font-value">18</span>px</label>
+      <label>Font size：<span id="font-value">18</span>px</label>
       <input id="font-slider" type="range" min="14" max="30" value="18" />
     </div>
 
     <!-- 阅读区（以后队友的 epub 内容会放在这里） -->
     <main id="reader" class="reader">
-      <div id="epub-view" class="epub-view" aria-label="EPUB 正文"></div>
+      <div id="epub-view" class="epub-view" aria-label="EPUB Content"></div>
       <div id="reader-error" class="reader-error" hidden></div>
-      <button id="resize-handle" class="resize-handle" aria-label="拖动缩放图片"><span>↘</span></button>
+      <button id="resize-handle" class="resize-handle" aria-label="Drag to Resize Image"><span>↘</span></button>
     </main>
 
     <!-- 调整面板：横屏在右侧，竖屏（手机/iPad）自动变成底部面板 -->
     <aside id="panel" class="panel">
       <div class="panel-header">
-        <h2>调整插图</h2>
-        <button id="close-btn" class="close-btn">✕</button>
+        <h2>Adjust Images</h2>
+        <button id="close-btn" class="close-btn">✕</button>  
       </div>
 
-      <label>大小：<span id="size-value">100</span>%（等比例缩放）</label>
+      <label>Size：<span id="size-value">100</span>% (Proportional Scaling)</label>
       <div class="size-row">
-        <button id="size-minus" class="step-btn" aria-label="缩小 1%">−</button>
+        <button id="size-minus" class="step-btn" aria-label="Decrease Size by 1%">−</button>
         <input id="size-slider" type="range" min="30" max="100" value="100" />
-        <button id="size-plus" class="step-btn" aria-label="放大 1%">+</button>
+        <button id="size-plus" class="step-btn" aria-label="Increase Size by 1%">+</button>
       </div>
 
-      <label>对齐</label>
+      <label>Alignment</label>
       <div class="align-group">
-        <button data-align="left"><svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><rect x="1" y="1" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/><rect x="4" y="5" width="8" height="12" rx="1.5" fill="currentColor"/></svg><span>靠左</span></button>
-        <button data-align="center" class="active"><svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><rect x="1" y="1" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/><rect x="11" y="5" width="8" height="12" rx="1.5" fill="currentColor"/></svg><span>居中</span></button>
+        <button data-align="left"><svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><rect x="1" y="1" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/><rect x="4" y="5" width="8" height="12" rx="1.5" fill="currentColor"/></svg><span>Left</span></button>
+        <button data-align="center" class="active"><svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><rect x="1" y="1" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/><rect x="11" y="5" width="8" height="12" rx="1.5" fill="currentColor"/></svg><span>Center</span></button>
+        <button data-align="right"><svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><rect x="1" y="1" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/><rect x="18" y="5" width="8" height="12" rx="1.5" fill="currentColor"/></svg><span>Right</span></button>
+      </div>
+
+      <label>Alignment</label>
+      <div class("step-btn", aria-label("Decrease Size by 1%">−</button>
+        <input id("size-slider", type("range", min("30", max("100", value("100", />
+        <button id("size-plus", class("step-btn", aria-label("Increase Size by 1%">+</button>
+      </div>
+
+      <label>Alignment</label>
+      <div class("align-group"):
+        <button data-align("left"):
+          <svg width("30", height("22", viewBox("0 0 30 22", aria-hidden("true"):
+            <rect x("1", y("1", width("28", height("20", rx("3", fill("none", stroke("currentColor", stroke-width("1.5", stroke-dasharray("3 2"):
+            <rect x("4", y("5", width("8", height("12", rx("1.5", fill("currentColor"):
+          </svg>
+          <span>Left</span>
+        </button>
+        <button data-align("center") class("active"):
+          <svg width("30", height("22", viewBox("0 0 30 22", aria-hidden("true"):
+            <rect x("1", y("1", width["28"], height["20"], rx["3"], fill["none"], stroke["currentColor"], stroke-width["1.5"], stroke-dasharray["3 2"]:
+            <rect x["11"], y["5"], width["8"], height["12"], rx["1.5"], fill["currentColor"]:
+          </svg>
+          <span>Center</span>
+        </button>
         <button data-align="right"><svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><rect x="1" y="1" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/><rect x="18" y="5" width="8" height="12" rx="1.5" fill="currentColor"/></svg><span>靠右</span></button>
       </div>
 
-      <button id="fit-btn" class="main-btn">适应屏幕（整张图一屏可见）</button>
+      <button id="fit-btn" class="main-btn">Adjust Image Fit</button>
 
       <div class="bottom-btns">
-        <button id="reset-btn">恢复默认</button>
-        <button id="save-btn" class="main-btn">保存</button>
+        <button id="reset-btn">Default</button>
+        <button id="save-btn" class="main-btn">Save</button>
       </div>
 
       <p id="saved-info" class="saved-info"></p>
-      <button id="export-btn" class="export-btn">导出设置文件 (.json)</button>
+      <button id="export-btn" class="export-btn">Export Settings File (.json)</button>
     </aside>
 
-    <div id="toast" class="toast">已保存 ✓</div>
+    <div id="toast" class="toast">Settings saved ✓</div>
     <script type="module" src="/src/reader.js"></script>
   </body>
 </html>

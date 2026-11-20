@@ -23,13 +23,13 @@ main{max-width:1120px;margin:0 auto;padding:24px 22px 0}
 .cover{position:relative;width:100%;aspect-ratio:5/7;border:1px solid var(--border);background:var(--surface);overflow:hidden;display:flex;align-items:center;justify-content:center}
 .cover img{width:100%;height:100%;object-fit:cover;display:block}
 .cover-placeholder{width:100%;height:100%;padding:22px 17px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#fff;color:#242424}
-.cover-placeholder .p-title{font-family:Georgia,serif;font-size:19px;line-height:1.35;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cover-placeholder .p-title{font-family:Georgia,serif;font-size:19px;line-height:1.35;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .cover-placeholder .rule{width:38%;height:1px;background:#b8b8b8;margin:17px 0}
 .cover-placeholder .p-author{font-size:11px;color:#777;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .flow-item[aria-selected="true"]{opacity:1}
 .flow-item:hover{opacity:1}
 .flow-info{height:142px;max-width:520px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;padding:7px 16px 14px}
-.flow-book-title{font-weight:650;font-size:16px;line-height:22px;height:44px;max-width:100%;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.flow-book-title{font-weight:650;font-size:16px;line-height:22px;height:44px;max-width:100%;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .flow-author{font-size:13px;color:var(--muted);margin-top:3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .progress-line{display:flex;align-items:center;gap:9px;width:min(320px,100%);margin-top:10px}
 .progress-track{height:4px;background:var(--soft);border-radius:10px;flex:1;overflow:hidden}
@@ -49,7 +49,7 @@ main{max-width:1120px;margin:0 auto;padding:24px 22px 0}
 .grid-cover-wrap .p-title{font-size:14px}
 .grid-cover-wrap .rule{margin:10px 0}
 .grid-cover-wrap .p-author{font-size:9px}
-.grid-title{font-size:13px;line-height:18px;height:36px;margin-top:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.grid-title{font-size:13px;line-height:18px;height:36px;margin-top:7px;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .new-tag{position:absolute;right:6px;top:6px;background:var(--accent);color:var(--accent-ink);font-size:10px;font-weight:650;padding:3px 7px;border-radius:20px}
 .progress-tag{position:absolute;left:6px;bottom:6px;background:color-mix(in srgb,#111 78%,transparent);color:#fff;font-size:10px;padding:4px 6px;border-radius:5px;font-variant-numeric:tabular-nums}
 .empty-fav{grid-column:1/-1;text-align:center;color:var(--muted);padding:45px 12px}
