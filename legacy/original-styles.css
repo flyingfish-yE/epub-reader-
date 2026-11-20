@@ -1,0 +1,428 @@
+/* ===== 颜色变量：日夜两套配色 ===== */
+:root {
+  --bg: #ffffff;
+  --text: #222222;
+  --panel-bg: #ebebed;
+  --btn-bg: #ffffff;
+  --btn-border: #c8c8cc;
+  --border: #d0d0d4;
+  --accent: #2f80ed;
+}
+
+[data-theme="night"] {
+  --bg: #000000;
+  --text: #dddddd;
+  --panel-bg: #2c2c2e;
+  --btn-bg: #3a3a3c;
+  --btn-border: #555559;
+  --border: #48484a;
+  --accent: #4c9aff;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* 去掉手机点击时的灰色闪块 */
+}
+
+html {
+  -webkit-text-size-adjust: 100%; /* 防止 iPhone 横屏时自己放大文字 */
+}
+
+body {
+  margin: 0;
+  background: var(--bg, #ffffff);
+  color: var(--text, #222222);
+  font-family: -apple-system, "PingFang SC", sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+button {
+  font-family: inherit;
+  touch-action: manipulation; /* 防止连点按钮时触发双击缩放 */
+}
+
+/* ===== 阅读区（兼顾 iPhone 刘海 / 底部横条的安全区）===== */
+.reader {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: calc(70px + env(safe-area-inset-top, 0px))
+    calc(20px + env(safe-area-inset-right, 0px)) calc(40px + env(safe-area-inset-bottom, 0px))
+    calc(20px + env(safe-area-inset-left, 0px));
+  line-height: 1.8;
+  font-size: 18px;
+}
+
+/* 图片所在的一整行：靠左/居中/靠右就是靠这一行里的位置 */
+.img-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 8px;
+}
+
+/* 图片外框：宽度用百分比，高度跟着图片自动算（所以一定是等比例缩放） */
+.img-box {
+  position: relative;
+  width: 100%;
+}
+
+.img-box img {
+  display: block;
+  width: 100%;
+  height: auto; /* 关键：只设宽度，高度自动，宽高比永远不变，文字也会跟着重新排版 */
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* iPhone 长按图片不弹"存储图像"菜单 */
+}
+
+/* 编辑中：图片不让浏览器抢走双指手势 */
+.img-box.editing {
+  touch-action: none;
+}
+
+.img-box img.editing {
+  outline: 3px solid var(--accent, #2f80ed);
+  outline-offset: 3px;
+}
+
+/* 编辑时：虚线框出图片所在的整行 */
+.img-wrap.editing {
+  outline: 2px dashed var(--accent, #2f80ed);
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+
+/* ===== 对角线缩放圆点（触控区域 44px，看得见的圆 26px）===== */
+.resize-handle {
+  display: none;
+  position: absolute;
+  right: -16px;
+  bottom: -16px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  touch-action: none;
+  cursor: nwse-resize;
+  z-index: 5;
+}
+
+.resize-handle::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  background: var(--accent, #2f80ed);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+.resize-handle svg {
+  position: relative;
+}
+
+.img-box.editing .resize-handle {
+  display: block;
+}
+
+/* 靠右对齐时，圆点换到左下角（因为图片是向左长大的）*/
+.img-box.align-right .resize-handle {
+  right: auto;
+  left: -16px;
+  cursor: nesw-resize;
+}
+
+.edit-row {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.edit-btn {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--accent, #2f80ed);
+  border-radius: 22px;
+  background: transparent;
+  color: var(--accent, #2f80ed);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ===== 顶部工具栏 ===== */
+.toolbar {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  right: calc(12px + env(safe-area-inset-right, 0px));
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+}
+
+body.editing .toolbar,
+body.editing .font-panel {
+  display: none;
+}
+
+.tool-btn {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--btn-border, #c8c8cc);
+  border-radius: 22px;
+  background: var(--panel-bg, #ebebed);
+  color: var(--text, #222222);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ===== 字号面板 ===== */
+.font-panel {
+  position: fixed;
+  top: calc(64px + env(safe-area-inset-top, 0px));
+  right: calc(12px + env(safe-area-inset-right, 0px));
+  width: min(260px, 80vw);
+  padding: 16px;
+  border: 1px solid var(--border, #d0d0d4);
+  border-radius: 12px;
+  background: var(--panel-bg, #ebebed);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  z-index: 15;
+  display: none;
+}
+
+.font-panel.show {
+  display: block;
+}
+
+.font-panel label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.font-panel input {
+  width: 100%;
+  accent-color: var(--accent, #2f80ed);
+}
+
+/* ===== 调整面板：默认（横屏）从右侧滑出 ===== */
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(320px, 80vw);
+  height: 100%;
+  padding: calc(20px + env(safe-area-inset-top, 0px))
+    calc(20px + env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) 20px;
+  background: var(--panel-bg, #ebebed);
+  border-left: 1px solid var(--border, #d0d0d4);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
+  z-index: 20;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  visibility: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.panel.open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.panel .close-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--text, #222222);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.panel label {
+  display: block;
+  margin: 16px 0 8px;
+  font-size: 15px;
+}
+
+.size-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#size-slider {
+  flex: 1;
+  min-width: 0;
+  height: 32px; /* 加高，手指更容易拖 */
+  accent-color: var(--accent, #2f80ed);
+}
+
+/* 滑块两边的 − / + 按钮：每次 1% */
+.panel .step-btn {
+  flex: none;
+  width: 44px;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.align-group {
+  display: flex;
+  gap: 8px;
+}
+
+.panel button {
+  min-height: 44px;
+  border: 1px solid var(--btn-border, #c8c8cc);
+  border-radius: 8px;
+  background: var(--btn-bg, #ffffff);
+  color: var(--text, #222222);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.align-group button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 4px;
+  min-height: 60px;
+}
+
+.align-group button span {
+  font-size: 13px;
+}
+
+.panel .align-group button.active,
+.panel .main-btn {
+  background: var(--accent, #2f80ed);
+  border-color: var(--accent, #2f80ed);
+  color: #ffffff;
+}
+
+#fit-btn {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.bottom-btns {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.bottom-btns button {
+  flex: 1;
+}
+
+.saved-info {
+  margin: 16px 0 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.export-btn {
+  width: 100%;
+}
+
+/* ===== 保存提示 ===== */
+.toast {
+  position: fixed;
+  bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: #333;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 30;
+  white-space: nowrap;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* =====================================================
+   横屏（iPad 横着拿、手机横着拿、电脑）：
+   面板在右侧，打开时把阅读区往左让出位置，图片不会被盖住
+   ===================================================== */
+@media (orientation: landscape) {
+  /* 给面板留出位置，阅读区在剩下的空间里居中，两边空隙均匀 */
+  body.editing {
+    padding-right: min(320px, 80vw);
+  }
+}
+
+/* =====================================================
+   竖屏（iPhone / iPad 竖着拿）：
+   右侧面板会盖住大半张图，所以自动改成从底部升起的面板
+   ===================================================== */
+@media (orientation: portrait) {
+  .panel {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    max-height: 52vh;
+    max-height: 52dvh;
+    padding: 12px calc(16px + env(safe-area-inset-right, 0px))
+      calc(16px + env(safe-area-inset-bottom, 0px)) calc(16px + env(safe-area-inset-left, 0px));
+    border-left: none;
+    border-top: 1px solid var(--border, #d0d0d4);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(100%);
+  }
+
+  .panel.open {
+    transform: translateY(0);
+  }
+
+  .panel-header {
+    margin-bottom: 0;
+  }
+
+  .panel label {
+    margin: 8px 0 4px;
+  }
+
+  .align-group button {
+    min-height: 52px;
+  }
+
+  #fit-btn {
+    margin-top: 12px;
+  }
+
+  /* 底部面板打开时，阅读区底部多留出空间，这样图片能滚到面板上方看 */
+  body.editing .reader {
+    padding-bottom: 60vh;
+  }
+}

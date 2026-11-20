@@ -1,0 +1,16 @@
+{
+  "name": "ln-reader-integrated",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vite --host 0.0.0.0",
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "epubjs": "^0.3.93",
+    "vite": "^6.0.5"
+  }
+}
